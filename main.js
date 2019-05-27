@@ -8,6 +8,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./dictionaries/dictionaries.module": [
+		"./src/app/dictionaries/dictionaries.module.ts",
+		"dictionaries-dictionaries-module"
+	],
 	"./redactor/redactor.module": [
 		"./src/app/redactor/redactor.module.ts",
 		"redactor-redactor-module"
@@ -68,8 +72,8 @@ var routes = [
                 loadChildren: './redactor/redactor.module#RedactorModule'
             },
             {
-                path: 'smth',
-                loadChildren: './redactor/redactor.module#RedactorModule'
+                path: 'dictionaries',
+                loadChildren: './dictionaries/dictionaries.module#DictionariesModule'
             }
         ]
     }
@@ -242,8 +246,8 @@ var MainComponent = /** @class */ (function () {
                 path: ['/redactor']
             },
             {
-                label: 'Таблица',
-                path: ['/smth']
+                label: 'Справочники',
+                path: ['/dictionaries']
             }
         ];
     }
@@ -299,7 +303,6 @@ var CoreModule = /** @class */ (function () {
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"].forRoot(),
-                _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatIconModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTabsModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_6__["RouterModule"]
             ],
@@ -432,7 +435,7 @@ var BlocksService = /** @class */ (function () {
                 cell: null
             },
             {
-                id: 0,
+                id: 3,
                 from: 1,
                 to: 4,
                 cell: null
@@ -464,6 +467,208 @@ var BlocksService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shared/services/dicts.service.ts":
+/*!**************************************************!*\
+  !*** ./src/app/shared/services/dicts.service.ts ***!
+  \**************************************************/
+/*! exports provided: DictDescField, DictDesc, DictsService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DictDescField", function() { return DictDescField; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DictDesc", function() { return DictDesc; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DictsService", function() { return DictsService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var DictDescField = /** @class */ (function () {
+    function DictDescField(desc) {
+        this.title = desc.title;
+        this.name = desc.name;
+        this.type = desc.type || 'text';
+        this.dict = desc.dict;
+        this.fields = desc.fields;
+        this.options = desc.options;
+        this.column = desc.column;
+    }
+    return DictDescField;
+}());
+
+var DictDesc = /** @class */ (function () {
+    function DictDesc(desc) {
+        this.name = desc.name;
+        this.title = desc.title;
+        this.fields = desc.fields;
+    }
+    return DictDesc;
+}());
+
+var DictsService = /** @class */ (function () {
+    function DictsService() {
+        var _this = this;
+        this.descs = [
+            new DictDesc({
+                name: 'goods', title: 'Товары', fields: [
+                    new DictDescField({ name: 'name', title: 'Наименование', column: true }),
+                    new DictDescField({ name: 'expiring', title: 'Срок годности ({mtu})', type: 'number', column: true }),
+                    // new DictDescField({
+                    //   name: 'size', title: 'Габариты', fields: [
+                    //     new DictDescField({name: 'length', title: 'Длина (м)', type: 'number'}),
+                    //     new DictDescField({name: 'width', title: 'Ширина (м)', type: 'number'}),
+                    //     new DictDescField({name: 'height', title: 'Высота (м)', type: 'number'}),
+                    //   ]
+                    // }),
+                    new DictDescField({ name: 'length', title: 'Длина (м)', type: 'number' }),
+                    new DictDescField({ name: 'width', title: 'Ширина (м)', type: 'number' }),
+                    new DictDescField({ name: 'height', title: 'Высота (м)', type: 'number' }),
+                    new DictDescField({ name: 'weight', title: 'Вес (кг)', type: 'number' }),
+                    new DictDescField({ name: 'price', title: 'Цена (р)', type: 'number', column: true }),
+                ]
+            }),
+            new DictDesc({
+                name: 'transports', title: 'Транспорт', fields: [
+                    new DictDescField({ name: 'name', title: 'Наименование', column: true }),
+                    new DictDescField({
+                        name: 'type',
+                        title: 'Тип',
+                        type: 'select',
+                        options: ['Автоперевозки', 'Ж/Д перевозки', 'Авивперевозки', 'Судоперевозки'],
+                        column: true
+                    }),
+                    new DictDescField({ name: 'speed', title: 'Скорость транспорта  (м/{mtu})' }),
+                    new DictDescField({ name: 'fuel', title: 'Расход топлива на 100км' }),
+                    new DictDescField({ name: 'price', title: 'Стоимость обслуживания (р)', column: true }),
+                ]
+            }),
+            new DictDesc({
+                name: 'containers', title: 'Контейнеры', fields: [
+                    new DictDescField({ name: 'name', title: 'Наименование', column: true }),
+                    new DictDescField({
+                        name: 'type',
+                        title: 'Тип',
+                        type: 'dict',
+                        dict: 'transports',
+                        column: true
+                    }),
+                    new DictDescField({ name: 'length', title: 'Длина (м)', type: 'number' }),
+                    new DictDescField({ name: 'width', title: 'Ширина (м)', type: 'number' }),
+                    new DictDescField({ name: 'height', title: 'Высота (м)', type: 'number' }),
+                    new DictDescField({ name: 'weight', title: 'Вес (кг)', type: 'number' }),
+                    new DictDescField({ name: 'duration', title: 'Длительность загрузки/разгруки {mtu}', type: 'number' }),
+                ]
+            })
+        ];
+        this.dictionaryValues = {
+            transports: [],
+            containers: [],
+            goods: []
+        };
+        this.dictionaries = ['transports', 'containers', 'goods'];
+        this.dictionaries.forEach(function (d) {
+            var fl = localStorage.getItem('dict-' + d);
+            if (fl) {
+                _this.dictionaryValues[d] = JSON.parse(fl);
+            }
+        });
+    }
+    DictsService.prototype.addToDict = function (name, el) {
+        this.dictionaryValues[name].push(el);
+        localStorage.removeItem('dict-' + name);
+        localStorage.setItem('dict-' + name, JSON.stringify(this.dictionaryValues[name]));
+    };
+    DictsService.prototype.change = function (name, el, val) {
+        var found = this.dictionaryValues[name].find(function (dv) { return dv === el; });
+        if (found) {
+            Object.assign(found, val);
+            localStorage.removeItem('dict-' + name);
+            localStorage.setItem('dict-' + name, JSON.stringify(this.dictionaryValues[name]));
+        }
+    };
+    DictsService.prototype.remove = function (name, el) {
+        var foundIndex = this.dictionaryValues[name].findIndex(function (dv) { return dv === el; });
+        if (foundIndex > -1) {
+            this.dictionaryValues[name].splice(foundIndex, 1);
+            localStorage.removeItem('dict-' + name);
+            localStorage.setItem('dict-' + name, JSON.stringify(this.dictionaryValues[name]));
+        }
+    };
+    DictsService.prototype.getDesc = function (name) {
+        return this.descs.find(function (el) { return el.name === name; });
+    };
+    DictsService.prototype.getDictVals = function (name) {
+        return this.dictionaryValues[name];
+    };
+    DictsService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], DictsService);
+    return DictsService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/services/parameters.service.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/shared/services/parameters.service.ts ***!
+  \*******************************************************/
+/*! exports provided: ParametersService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ParametersService", function() { return ParametersService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var ParametersService = /** @class */ (function () {
+    function ParametersService() {
+        this.timeUnits = [
+            {
+                name: 'Миллисекунда',
+                short: 'мс'
+            },
+            {
+                name: 'Секунда',
+                short: 'с'
+            },
+            {
+                name: 'Минута',
+                short: 'мин'
+            },
+            {
+                name: 'Час',
+                short: 'ч'
+            },
+            {
+                name: 'День',
+                short: 'д'
+            }
+        ];
+        this.parameters = {
+            modelTimeUnit: this.timeUnits[0],
+            simulationDuration: 1
+        };
+    }
+    ParametersService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], ParametersService);
+    return ParametersService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared/shared.module.ts":
 /*!*****************************************!*\
   !*** ./src/app/shared/shared.module.ts ***!
@@ -480,6 +685,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _services_blocks_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./services/blocks.service */ "./src/app/shared/services/blocks.service.ts");
+/* harmony import */ var _services_parameters_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services/parameters.service */ "./src/app/shared/services/parameters.service.ts");
+/* harmony import */ var _services_dicts_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./services/dicts.service */ "./src/app/shared/services/dicts.service.ts");
+
+
 
 
 
@@ -493,7 +702,7 @@ var SharedModule = /** @class */ (function () {
     SharedModule.forRoot = function () {
         return {
             ngModule: SharedModule_1,
-            providers: [_services_blocks_service__WEBPACK_IMPORTED_MODULE_5__["BlocksService"]]
+            providers: [_services_blocks_service__WEBPACK_IMPORTED_MODULE_5__["BlocksService"], _services_parameters_service__WEBPACK_IMPORTED_MODULE_6__["ParametersService"], _services_dicts_service__WEBPACK_IMPORTED_MODULE_7__["DictsService"]]
         };
     };
     var SharedModule_1;
@@ -505,20 +714,26 @@ var SharedModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSortModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatCardModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatTableModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatInputModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSelectModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSelectModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialogModule"]
             ],
             exports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSortModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatCardModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatTableModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatInputModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSelectModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSelectModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialogModule"],
             ]
         })
     ], SharedModule);
