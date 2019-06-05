@@ -1,5 +1,79 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["dictionaries-dictionaries-module"],{
 
+/***/ "./src/app/dictionaries/components/dialog-pack/dialog-pack.component.html":
+/*!********************************************************************************!*\
+  !*** ./src/app/dictionaries/components/dialog-pack/dialog-pack.component.html ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>Добавить упаковку</h1>\n<div mat-dialog-content>\n  <div class=\"\" [formGroup]=\"group\">\n    <mat-form-field class=\"full-width\">\n      <input matInput [placeholder]=\"'Наименование'\" type=\"text\" formControlName=\"name\">\n    </mat-form-field>\n    <mat-form-field class=\"full-width\">\n      <input matInput [placeholder]=\"'Количество товара'\" type=\"number\" formControlName=\"count\">\n    </mat-form-field>\n    <mat-form-field class=\"full-width\">\n      <input matInput [placeholder]=\"'Ширина'\" type=\"text\" formControlName=\"width\">\n    </mat-form-field>\n    <mat-form-field class=\"full-width\">\n      <input matInput [placeholder]=\"'Длина'\" type=\"text\" formControlName=\"length\">\n    </mat-form-field>\n    <mat-form-field class=\"full-width\">\n      <input matInput [placeholder]=\"'Высота'\" type=\"text\" formControlName=\"height\">\n    </mat-form-field>\n  </div>\n</div>\n<div mat-dialog-actions>\n  <button mat-button (click)=\"cancel()\">Отменить</button>\n  <button mat-button (click)=\"save()\" cdkFocusInitial>Сохранить</button>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/dictionaries/components/dialog-pack/dialog-pack.component.scss":
+/*!********************************************************************************!*\
+  !*** ./src/app/dictionaries/components/dialog-pack/dialog-pack.component.scss ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2RpY3Rpb25hcmllcy9jb21wb25lbnRzL2RpYWxvZy1wYWNrL2RpYWxvZy1wYWNrLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/dictionaries/components/dialog-pack/dialog-pack.component.ts":
+/*!******************************************************************************!*\
+  !*** ./src/app/dictionaries/components/dialog-pack/dialog-pack.component.ts ***!
+  \******************************************************************************/
+/*! exports provided: DialogPackComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DialogPackComponent", function() { return DialogPackComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _shared_services_parameters_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../shared/services/parameters.service */ "./src/app/shared/services/parameters.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+
+
+
+
+
+var DialogPackComponent = /** @class */ (function () {
+    function DialogPackComponent(ps, fb, dialog, dialogRef) {
+        this.ps = ps;
+        this.fb = fb;
+        this.dialog = dialog;
+        this.dialogRef = dialogRef;
+        this.group = this.fb.group({ name: null, count: null, width: null, length: null, height: null });
+    }
+    DialogPackComponent.prototype.ngOnInit = function () {
+    };
+    DialogPackComponent.prototype.cancel = function () {
+        this.dialogRef.close();
+    };
+    DialogPackComponent.prototype.save = function () {
+        this.dialogRef.close(this.group.value);
+    };
+    DialogPackComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-dialog-pack',
+            template: __webpack_require__(/*! ./dialog-pack.component.html */ "./src/app/dictionaries/components/dialog-pack/dialog-pack.component.html"),
+            styles: [__webpack_require__(/*! ./dialog-pack.component.scss */ "./src/app/dictionaries/components/dialog-pack/dialog-pack.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_shared_services_parameters_service__WEBPACK_IMPORTED_MODULE_3__["ParametersService"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialog"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialogRef"]])
+    ], DialogPackComponent);
+    return DialogPackComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/dictionaries/components/elements/elements.component.html":
 /*!**************************************************************************!*\
   !*** ./src/app/dictionaries/components/elements/elements.component.html ***!
@@ -7,7 +81,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"full-height d-flex-row\" style=\"overflow: hidden\">\n  <div class=\"left-table\" style=\"overflow: auto;\">\n    <table mat-table *ngIf=\"source\" [dataSource]=\"dataSource\" matSort class=\"full-width table-container\">\n\n      <ng-container *ngFor=\"let cf of columnsFields\" [matColumnDef]=\"cf.name\">\n        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{cf.title | timeUnit}}</th>\n        <td mat-cell *matCellDef=\"let row\">\n          <ng-container *ngIf=\"cf.type !== 'dict'\">{{row[cf.name]}}</ng-container>\n          <ng-container *ngIf=\"cf.type === 'dict'\">{{row[cf.name].name}}</ng-container>\n        </td>\n\n      </ng-container>\n\n      <tr mat-header-row *matHeaderRowDef=\"columns; sticky: true\"></tr>\n      <tr mat-row *matRowDef=\"let row; columns: columns;\" (click)=\"selectRow(row)\"\n          style=\"cursor: pointer;\" [ngClass]=\"{'selected-row': row === selectedRow}\"></tr>\n\n    </table>\n  </div>\n  <div class=\"right-elem\" style=\"z-index: 150\">\n    <mat-card class=\"mat-elevation-z1\" *ngIf=\"!selectedRow\">\n      <mat-card-title>\n        Новый элемент\n      </mat-card-title>\n      <mat-card-content>\n        <div class=\"\" [formGroup]=\"form\">\n          <mat-form-field *ngFor=\"let field of desc.fields\" class=\"full-width\">\n            <input *ngIf=\"field.type === 'text'\" matInput\n                   [placeholder]=\"(field.title | timeUnit)\"\n                   type=\"text\"\n                   [formControlName]=\"field.name\">\n            <input *ngIf=\"field.type === 'number'\" matInput\n                   [placeholder]=\"(field.title | timeUnit)\"\n                   type=\"number\"\n                   [formControlName]=\"field.name\">\n            <mat-label *ngIf=\"field.type === 'select'\">{{field.title | timeUnit}}</mat-label>\n            <mat-select *ngIf=\"field.type === 'select'\" [formControlName]=\"field.name\" [placeholder]=\"(field.title | timeUnit)\">\n              <mat-option *ngFor=\"let o of field.options\" [value]=\"o\">\n                {{o}}\n              </mat-option>\n            </mat-select>\n            <mat-label *ngIf=\"field.type === 'dict'\">{{field.title | timeUnit}}</mat-label>\n            <mat-select *ngIf=\"field.type === 'dict'\" [formControlName]=\"field.name\" [placeholder]=\"(field.title | timeUnit)\">\n              <mat-option *ngFor=\"let o of ds.getDictVals(field.dict)\" [value]=\"o\">\n                {{o.name}}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n        </div>\n      </mat-card-content>\n      <mat-card-footer class=\"d-flex-row justify-content-end\">\n        <button mat-button (click)=\"add()\">Добавить</button>\n      </mat-card-footer>\n    </mat-card>\n\n    <mat-card class=\"mat-elevation-z1\" *ngIf=\"selectedRow\">\n      <mat-card-title>\n        Редактирование элемента\n      </mat-card-title>\n      <mat-card-content>\n        <div class=\"\" [formGroup]=\"form\">\n          <mat-form-field *ngFor=\"let field of desc.fields\" class=\"full-width\">\n            <input *ngIf=\"field.type === 'text'\" matInput\n                   [placeholder]=\"(field.title | timeUnit)\"\n                   type=\"text\"\n                   [formControlName]=\"field.name\">\n            <input *ngIf=\"field.type === 'number'\" matInput\n                   [placeholder]=\"(field.title | timeUnit)\"\n                   type=\"number\"\n                   [formControlName]=\"field.name\">\n            <mat-label *ngIf=\"field.type === 'select'\">{{field.title | timeUnit}}</mat-label>\n            <mat-select *ngIf=\"field.type === 'select'\" [formControlName]=\"field.name\" [placeholder]=\"(field.title | timeUnit)\">\n              <mat-option *ngFor=\"let o of field.options\" [value]=\"o\">\n                {{o}}\n              </mat-option>\n            </mat-select>\n            <mat-label *ngIf=\"field.type === 'dict'\">{{field.title | timeUnit}}</mat-label>\n            <mat-select *ngIf=\"field.type === 'dict'\" [formControlName]=\"field.name\" [compareWith]=\"dictComape\" [placeholder]=\"(field.title | timeUnit)\">\n              <mat-option *ngFor=\"let o of ds.getDictVals(field.dict)\" [value]=\"o\">\n                {{o.name}}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n        </div>\n      </mat-card-content>\n      <mat-card-footer class=\"d-flex-row justify-content-end\">\n        <button mat-button color=\"warn\" (click)=\"remove()\">Удалить</button>\n        <button mat-button (click)=\"edit()\">Изменить</button>\n      </mat-card-footer>\n    </mat-card>\n  </div>\n</div>\n"
+module.exports = "<div class=\"full-height d-flex-row\" style=\"overflow: hidden\">\n  <div class=\"left-table\" style=\"overflow: auto;\">\n    <table mat-table *ngIf=\"source\" [dataSource]=\"dataSource\" matSort class=\"full-width table-container\">\n\n      <ng-container *ngFor=\"let cf of columnsFields\" [matColumnDef]=\"cf.name\">\n        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{cf.title | timeUnit}}</th>\n        <td mat-cell *matCellDef=\"let row\">\n          <ng-container *ngIf=\"cf.type !== 'dict'\">{{row[cf.name]}}</ng-container>\n          <ng-container *ngIf=\"cf.type === 'dict'\">{{row[cf.name].name}}</ng-container>\n        </td>\n\n      </ng-container>\n\n      <tr mat-header-row *matHeaderRowDef=\"columns; sticky: true\"></tr>\n      <tr mat-row *matRowDef=\"let row; columns: columns;\" (click)=\"selectRow(row)\"\n          style=\"cursor: pointer;\" [ngClass]=\"{'selected-row': row === selectedRow}\"></tr>\n\n    </table>\n  </div>\n  <div class=\"right-elem\" style=\"z-index: 150\">\n    <mat-card class=\"mat-elevation-z1\" *ngIf=\"!selectedRow\">\n      <mat-card-title>\n        Новый элемент\n      </mat-card-title>\n      <mat-card-content>\n        <div class=\"\" [formGroup]=\"form\">\n          <ng-container *ngFor=\"let field of desc.fields\">\n            <mat-form-field class=\"full-width\" *ngIf=\"field.type !== 'custom'\">\n              <input *ngIf=\"field.type === 'text'\" matInput\n                     [placeholder]=\"(field.title | timeUnit)\"\n                     type=\"text\"\n                     [formControlName]=\"field.name\">\n              <input *ngIf=\"field.type === 'number'\" matInput\n                     [placeholder]=\"(field.title | timeUnit)\"\n                     type=\"number\"\n                     [formControlName]=\"field.name\">\n              <mat-label *ngIf=\"field.type === 'select'\">{{field.title | timeUnit}}</mat-label>\n              <mat-select *ngIf=\"field.type === 'select'\" [formControlName]=\"field.name\"\n                          [placeholder]=\"(field.title | timeUnit)\">\n                <mat-option *ngFor=\"let o of field.options\" [value]=\"o\">\n                  {{o}}\n                </mat-option>\n              </mat-select>\n              <mat-label *ngIf=\"field.type === 'dict'\">{{field.title | timeUnit}}</mat-label>\n              <mat-select *ngIf=\"field.type === 'dict'\" [formControlName]=\"field.name\" [compareWith]=\"dictComape\"\n                          [placeholder]=\"(field.title | timeUnit)\">\n                <mat-option *ngFor=\"let o of ds.getDictVals(field.dict)\" [value]=\"o\">\n                  {{o.name}}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n            <mat-card *ngIf=\"field.type === 'custom' && field.name === 'packs'\">\n              <mat-card-title>{{field.title | timeUnit}}</mat-card-title>\n              <mat-card-content>\n                <mat-list *ngIf=\"form.value[field.name] && form.value[field.name].length\">\n                  <mat-list-item *ngFor=\"let v of form.value[field.name]; let ind = index\"> <b>{{v.name}}</b>, кол: {{v.count}}\n                    <span *ngIf=\"v.width && v.height && v.length\">, размер: {{v.width}}x{{v.length}}x{{v.height}}</span>\n                    <button mat-button color=\"warn\" (click)=\"delPack(ind)\"><i class=\"material-icons\">clear</i></button>\n                  </mat-list-item>\n                </mat-list>\n              </mat-card-content>\n              <mat-card-footer class=\"d-flex-row justify-content-end\">\n                <button mat-button (click)=\"addPack()\">+</button>\n              </mat-card-footer>\n            </mat-card>\n          </ng-container>\n        </div>\n      </mat-card-content>\n      <mat-card-footer class=\"d-flex-row justify-content-end\">\n        <button mat-button (click)=\"add()\">Добавить</button>\n      </mat-card-footer>\n    </mat-card>\n\n    <mat-card class=\"mat-elevation-z1\" *ngIf=\"selectedRow\">\n      <mat-card-title>\n        Редактирование элемента\n      </mat-card-title>\n      <mat-card-content>\n        <div class=\"\" [formGroup]=\"form\">\n          <ng-container *ngFor=\"let field of desc.fields\">\n            <mat-form-field class=\"full-width\" *ngIf=\"field.type !== 'custom'\">\n              <input *ngIf=\"field.type === 'text'\" matInput\n                     [placeholder]=\"(field.title | timeUnit)\"\n                     type=\"text\"\n                     [formControlName]=\"field.name\">\n              <input *ngIf=\"field.type === 'number'\" matInput\n                     [placeholder]=\"(field.title | timeUnit)\"\n                     type=\"number\"\n                     [formControlName]=\"field.name\">\n              <mat-label *ngIf=\"field.type === 'select'\">{{field.title | timeUnit}}</mat-label>\n              <mat-select *ngIf=\"field.type === 'select'\" [formControlName]=\"field.name\"\n                          [placeholder]=\"(field.title | timeUnit)\">\n                <mat-option *ngFor=\"let o of field.options\" [value]=\"o\">\n                  {{o}}\n                </mat-option>\n              </mat-select>\n              <mat-label *ngIf=\"field.type === 'dict'\">{{field.title | timeUnit}}</mat-label>\n              <mat-select *ngIf=\"field.type === 'dict'\" [formControlName]=\"field.name\" [compareWith]=\"dictComape\"\n                          [placeholder]=\"(field.title | timeUnit)\">\n                <mat-option *ngFor=\"let o of ds.getDictVals(field.dict)\" [value]=\"o\">\n                  {{o.name}}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n            <mat-card *ngIf=\"field.type === 'custom' && field.name === 'packs'\">\n              <mat-card-title>{{field.title | timeUnit}}</mat-card-title>\n              <mat-card-content>\n                <mat-list *ngIf=\"form.value[field.name] && form.value[field.name].length\">\n                  <mat-list-item *ngFor=\"let v of form.value[field.name]; let ind = index\"> <b>{{v.name}}</b>, кол: {{v.count}}\n                    <span *ngIf=\"v.width && v.height && v.length\">, размер: {{v.width}}x{{v.length}}x{{v.height}}</span>\n                    <button mat-button color=\"warn\" (click)=\"delPack(ind)\"><i class=\"material-icons\">clear</i></button>\n                  </mat-list-item>\n                </mat-list>\n              </mat-card-content>\n              <mat-card-footer class=\"d-flex-row justify-content-end\">\n                <button mat-button (click)=\"addPack()\">+</button>\n              </mat-card-footer>\n            </mat-card>\n          </ng-container>\n        </div>\n      </mat-card-content>\n      <mat-card-footer class=\"d-flex-row justify-content-end\">\n        <button mat-button color=\"warn\" (click)=\"remove()\">Удалить</button>\n        <button mat-button (click)=\"edit()\">Изменить</button>\n      </mat-card-footer>\n    </mat-card>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -18,7 +92,7 @@ module.exports = "<div class=\"full-height d-flex-row\" style=\"overflow: hidden
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\n  flex: 1 1 auto;\n  overflow: hidden; }\n\n.left-table {\n  flex: 1 1 auto; }\n\n.right-elem {\n  flex: 0 0 450px; }\n\n.selected-row {\n  background-color: rgba(0, 255, 252, 0.33); }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZGljdGlvbmFyaWVzL2NvbXBvbmVudHMvZWxlbWVudHMvQzpcXFdQXFxyZWRhY3Rvci9zcmNcXGFwcFxcZGljdGlvbmFyaWVzXFxjb21wb25lbnRzXFxlbGVtZW50c1xcZWxlbWVudHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxjQUFjO0VBQ2QsZ0JBQWdCLEVBQUE7O0FBR2xCO0VBQ0UsY0FBYyxFQUFBOztBQUdoQjtFQUNFLGVBQWUsRUFBQTs7QUFHakI7RUFDRSx5Q0FBeUMsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2RpY3Rpb25hcmllcy9jb21wb25lbnRzL2VsZW1lbnRzL2VsZW1lbnRzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gIGZsZXg6IDEgMSBhdXRvO1xyXG4gIG92ZXJmbG93OiBoaWRkZW47XHJcbn1cclxuXHJcbi5sZWZ0LXRhYmxlIHtcclxuICBmbGV4OiAxIDEgYXV0bztcclxufVxyXG5cclxuLnJpZ2h0LWVsZW0ge1xyXG4gIGZsZXg6IDAgMCA0NTBweDtcclxufVxyXG5cclxuLnNlbGVjdGVkLXJvdyB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLCAyNTUsIDI1MiwgMC4zMyk7XHJcbn1cclxuIl19 */"
+module.exports = ":host {\n  flex: 1 1 auto;\n  overflow: hidden; }\n\n.left-table {\n  flex: 1 1 auto; }\n\n.right-elem {\n  flex: 0 0 550px; }\n\n.selected-row {\n  background-color: rgba(0, 255, 252, 0.33); }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZGljdGlvbmFyaWVzL2NvbXBvbmVudHMvZWxlbWVudHMvQzpcXFdQXFxyZWRhY3Rvci9zcmNcXGFwcFxcZGljdGlvbmFyaWVzXFxjb21wb25lbnRzXFxlbGVtZW50c1xcZWxlbWVudHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxjQUFjO0VBQ2QsZ0JBQWdCLEVBQUE7O0FBR2xCO0VBQ0UsY0FBYyxFQUFBOztBQUdoQjtFQUNFLGVBQWUsRUFBQTs7QUFHakI7RUFDRSx5Q0FBeUMsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2RpY3Rpb25hcmllcy9jb21wb25lbnRzL2VsZW1lbnRzL2VsZW1lbnRzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gIGZsZXg6IDEgMSBhdXRvO1xyXG4gIG92ZXJmbG93OiBoaWRkZW47XHJcbn1cclxuXHJcbi5sZWZ0LXRhYmxlIHtcclxuICBmbGV4OiAxIDEgYXV0bztcclxufVxyXG5cclxuLnJpZ2h0LWVsZW0ge1xyXG4gIGZsZXg6IDAgMCA1NTBweDtcclxufVxyXG5cclxuLnNlbGVjdGVkLXJvdyB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLCAyNTUsIDI1MiwgMC4zMyk7XHJcbn1cclxuIl19 */"
 
 /***/ }),
 
@@ -38,6 +112,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _dialog_pack_dialog_pack_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../dialog-pack/dialog-pack.component */ "./src/app/dictionaries/components/dialog-pack/dialog-pack.component.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
+
 
 
 
@@ -45,10 +123,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ElementsComponent = /** @class */ (function () {
-    function ElementsComponent(ds, route, fb) {
+    function ElementsComponent(ds, route, fb, dialog) {
         this.ds = ds;
         this.route = route;
         this.fb = fb;
+        this.dialog = dialog;
     }
     ElementsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -61,6 +140,7 @@ var ElementsComponent = /** @class */ (function () {
             _this.columnsFields = _this.desc.fields.filter(function (f) { return f.column; });
             _this.columns = _this.columnsFields.map(function (f) { return f.name; });
             _this.genForm();
+            _this.dataSource.sort = _this.sort;
         });
     };
     ElementsComponent.prototype.selectRow = function (row) {
@@ -106,11 +186,38 @@ var ElementsComponent = /** @class */ (function () {
         this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](this.source);
         this.dataSource.sort = this.sort;
     };
+    ElementsComponent.prototype.addPack = function () {
+        var _this = this;
+        var dialogRef = this.dialog.open(_dialog_pack_dialog_pack_component__WEBPACK_IMPORTED_MODULE_6__["DialogPackComponent"], {
+            width: '300px'
+        }).afterClosed().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe(function (res) {
+            if (res.name && res.count) {
+                var packs = _this.form.value.packs;
+                if (!packs) {
+                    _this.form.get('packs').setValue([res]);
+                }
+                else {
+                    packs.push(res);
+                    _this.form.get('packs').setValue(packs);
+                }
+            }
+        });
+    };
+    ElementsComponent.prototype.delPack = function (ind) {
+        var packs = this.form.value.packs;
+        packs.splice(ind, 1);
+        this.form.get('packs').setValue(packs);
+    };
     ElementsComponent.prototype.ngAfterViewInit = function () {
         this.dataSource.sort = this.sort;
     };
     ElementsComponent.prototype.dictComape = function (a, b) {
-        return a.name === b.name;
+        if (a && b) {
+            return a.name === b.name;
+        }
+        else {
+            return false;
+        }
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_5__["MatSort"]),
@@ -122,7 +229,7 @@ var ElementsComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./elements.component.html */ "./src/app/dictionaries/components/elements/elements.component.html"),
             styles: [__webpack_require__(/*! ./elements.component.scss */ "./src/app/dictionaries/components/elements/elements.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_shared_services_dicts_service__WEBPACK_IMPORTED_MODULE_2__["DictsService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_shared_services_dicts_service__WEBPACK_IMPORTED_MODULE_2__["DictsService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"], _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatDialog"]])
     ], ElementsComponent);
     return ElementsComponent;
 }());
@@ -256,7 +363,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _components_elements_elements_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/elements/elements.component */ "./src/app/dictionaries/components/elements/elements.component.ts");
-/* harmony import */ var _pipes_time_unit_pipe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pipes/time-unit.pipe */ "./src/app/dictionaries/pipes/time-unit.pipe.ts");
+/* harmony import */ var _components_dialog_pack_dialog_pack_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/dialog-pack/dialog-pack.component */ "./src/app/dictionaries/components/dialog-pack/dialog-pack.component.ts");
 
 
 
@@ -274,55 +381,20 @@ var DictionariesModule = /** @class */ (function () {
             declarations: [
                 _components_list_list_component__WEBPACK_IMPORTED_MODULE_2__["ListComponent"],
                 _components_elements_elements_component__WEBPACK_IMPORTED_MODULE_7__["ElementsComponent"],
-                _pipes_time_unit_pipe__WEBPACK_IMPORTED_MODULE_8__["TimeUnitPipe"]
+                _components_dialog_pack_dialog_pack_component__WEBPACK_IMPORTED_MODULE_8__["DialogPackComponent"]
             ],
             imports: [
                 _shared_shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"],
                 _dictionaries_routing_module__WEBPACK_IMPORTED_MODULE_4__["DictionariesRoutingModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTabsModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_6__["RouterModule"]
+            ],
+            entryComponents: [
+                _components_dialog_pack_dialog_pack_component__WEBPACK_IMPORTED_MODULE_8__["DialogPackComponent"]
             ]
         })
     ], DictionariesModule);
     return DictionariesModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/dictionaries/pipes/time-unit.pipe.ts":
-/*!******************************************************!*\
-  !*** ./src/app/dictionaries/pipes/time-unit.pipe.ts ***!
-  \******************************************************/
-/*! exports provided: TimeUnitPipe */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TimeUnitPipe", function() { return TimeUnitPipe; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _shared_services_parameters_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/services/parameters.service */ "./src/app/shared/services/parameters.service.ts");
-
-
-
-var TimeUnitPipe = /** @class */ (function () {
-    function TimeUnitPipe(ps) {
-        this.ps = ps;
-    }
-    TimeUnitPipe.prototype.transform = function (value, args) {
-        var str = value;
-        var reg = /\{mtu\}/;
-        return str.replace(reg, this.ps.parameters.modelTimeUnit.short);
-    };
-    TimeUnitPipe = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Pipe"])({
-            name: 'timeUnit'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_shared_services_parameters_service__WEBPACK_IMPORTED_MODULE_2__["ParametersService"]])
-    ], TimeUnitPipe);
-    return TimeUnitPipe;
 }());
 
 
