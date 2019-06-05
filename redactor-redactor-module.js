@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"full-height\" *ngIf=\"block\">\r\n  <mat-card class=\"full-height d-flex-column\">\r\n    <mat-card-title>\r\n      <ng-container [ngSwitch]=\"block.classId\">\r\n        <h1 *ngSwitchCase=\"1\">Вокзал</h1>\r\n        <h1 *ngSwitchCase=\"2\">Поставщик</h1>\r\n        <h1 *ngSwitchCase=\"3\">Аэропорт</h1>\r\n        <h1 *ngSwitchCase=\"4\">Порт</h1>\r\n        <h1 *ngSwitchCase=\"5\">Производитель</h1>\r\n        <h1 *ngSwitchCase=\"6\">Потребитель</h1>\r\n        <h1 *ngSwitchCase=\"7\">Дистрибьютор</h1>\r\n      </ng-container>\r\n      <mat-form-field class=\"full-width name\" [formGroup]=\"formGroup\">\r\n        <input matInput placeholder=\"Наименование\" name=\"Наименование\" formControlName=\"name\">\r\n      </mat-form-field>\r\n\r\n    </mat-card-title>\r\n\r\n    <!-- ПОСТАВЩИК -->\r\n    <mat-card-content *ngIf=\"block.classId === 2\" class=\"card-content f-stretching d-flex-column\">\r\n      <mat-card class=\"small-card\" [formGroup]=\"formGroup\">\r\n        <mat-card-title>Обслуживание</mat-card-title>\r\n        <mat-card-content>\r\n          <mat-form-field class=\"mr-2\">\r\n            <input matInput placeholder=\"Стоимость\" formControlName=\"costService\">\r\n          </mat-form-field>\r\n          <mat-form-field>\r\n            <input matInput placeholder=\"Срок\" formControlName=\"serviceTime\">\r\n          </mat-form-field>\r\n        </mat-card-content>\r\n      </mat-card>\r\n      <div class=\"title\">Товары для реализации</div>\r\n      <app-sender-goods-table [source]=\"block.info.goodsOut\"\r\n                              (dataChanged)=\"goodsOutChanges($event)\"></app-sender-goods-table>\r\n      <div class=\"title\">Погрузчики</div>\r\n      <app-loaders [info]=\"block.info\"></app-loaders>\r\n      <mat-card>\r\n        <mat-card-title style=\"font-size: 19px\">Контейнеры</mat-card-title>\r\n        <mat-card-content>\r\n          <mat-list>\r\n            <mat-list-item style=\"font-size: 12px\" *ngFor=\"let c of containers; let ind = index\">\r\n              <b>{{c.container.name}}</b>, кол-во: {{c.count}}\r\n              <button mat-button color=\"warn\" (click)=\"delContainer(ind)\"><i class=\"material-icons\">clear</i></button>\r\n            </mat-list-item>\r\n          </mat-list>\r\n        </mat-card-content>\r\n        <mat-card-footer class=\"d-flex-row justify-content-end\">\r\n          <button mat-button (click)=\"addContainer()\">+</button>\r\n        </mat-card-footer>\r\n      </mat-card>\r\n    </mat-card-content>\r\n\r\n    <!-- ПОТРЕБИТЕЛЬ -->\r\n    <mat-card-content *ngIf=\"block.classId === 6\" class=\"card-content f-stretching d-flex-column\">\r\n      <div class=\"\" [formGroup]=\"formGroup\">\r\n        <!--<mat-form-field class=\"full-width\">-->\r\n        <!--<input matInput placeholder=\"Наименование\" name=\"Наименование\" formControlName=\"name\">-->\r\n        <!--</mat-form-field>-->\r\n        <mat-card class=\"small-card\">\r\n          <mat-card-title>Обслуживание</mat-card-title>\r\n          <mat-card-content>\r\n            <mat-form-field class=\"mr-2\">\r\n              <input matInput placeholder=\"Стоимость\" formControlName=\"costService\">\r\n            </mat-form-field>\r\n            <mat-form-field>\r\n              <input matInput placeholder=\"Срок\" formControlName=\"serviceTime\">\r\n            </mat-form-field>\r\n          </mat-card-content>\r\n        </mat-card>\r\n        <mat-card class=\"small-card\">\r\n          <mat-card-title>Параметры</mat-card-title>\r\n          <mat-card-content>\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput placeholder=\"Точка заказа (%)\" name=\"Точка заказа\" type=\"number\" formControlName=\"rop\">\r\n            </mat-form-field>\r\n            <mat-form-field class=\"mr-2\">\r\n              <input matInput placeholder=\"Спрос (мат. ожидание)\" name=\"Мат. ожидание\" formControlName=\"mat\">\r\n            </mat-form-field>\r\n            <mat-form-field class=\"mr-2\">\r\n              <input matInput placeholder=\"Спрос (дисперсия)\" name=\"Дисперсия\" formControlName=\"disp\">\r\n            </mat-form-field>\r\n          </mat-card-content>\r\n        </mat-card>\r\n      </div>\r\n      <div class=\"title\">Товары на заказ</div>\r\n      <app-goods-table [source]=\"block.info.goodsIn\" (dataChanged)=\"goodsInChanges($event)\"\r\n                       class=\"\"></app-goods-table>\r\n      <div class=\"title\">Погрузчики</div>\r\n      <app-loaders [info]=\"block.info\"></app-loaders>\r\n    </mat-card-content>\r\n\r\n    <!-- ПРОИЗВОДИТЕЛЬ -->\r\n    <mat-card-content *ngIf=\"block.classId === 5\" class=\"card-content f-stretching d-flex-column\">\r\n      <mat-card class=\"small-card\" [formGroup]=\"formGroup\">\r\n        <mat-card-title>Обслуживание</mat-card-title>\r\n        <mat-card-content>\r\n          <mat-form-field class=\"mr-2\">\r\n            <input matInput placeholder=\"Стоимость\" formControlName=\"costService\">\r\n          </mat-form-field>\r\n          <mat-form-field>\r\n            <input matInput placeholder=\"Срок\" formControlName=\"serviceTime\">\r\n          </mat-form-field>\r\n        </mat-card-content>\r\n      </mat-card>\r\n      <div class=\"title\">Погрузчики</div>\r\n      <app-loaders [info]=\"block.info\"></app-loaders>\r\n      <mat-card class=\"small-card\" [formGroup]=\"formGroup\">\r\n        <mat-card-title>Производство</mat-card-title>\r\n        <mat-card-content>\r\n          <mat-form-field class=\"full-width\">\r\n            <mat-label>Тип</mat-label>\r\n            <mat-select formControlName=\"workType\" placeholder=\"Тип\">\r\n              <mat-option *ngFor=\"let t of workTypes\" [value]=\"t\">\r\n                {{t}}\r\n              </mat-option>\r\n            </mat-select>\r\n          </mat-form-field>\r\n          <mat-form-field class=\"mr-2\">\r\n            <input matInput [placeholder]=\"('Длительность операции ({mtu})' | timeUnit)\" formControlName=\"workDuration\">\r\n          </mat-form-field>\r\n          <mat-form-field class=\"mr-2\">\r\n            <input matInput placeholder=\"Стоимоть операции (р)\" formControlName=\"workCost\">\r\n          </mat-form-field>\r\n          <mat-form-field class=\"mr-2\" *ngIf=\"formGroup.value && formGroup.value.workType === 'Прерываемое'\">\r\n            <input matInput [placeholder]=\"('Длительность перезапуска ({mtu})' | timeUnit)\"\r\n                   formControlName=\"workDurationRestart\">\r\n          </mat-form-field>\r\n          <mat-form-field  class=\"mr-2\" *ngIf=\"formGroup.value && formGroup.value.workType === 'Прерываемое'\">\r\n            <input matInput formControlName=\"workCostRestart\" placeholder=\"Стоимоть перезапуска (р)\">\r\n          </mat-form-field>\r\n        </mat-card-content>\r\n      </mat-card>\r\n      <div class=\"title\">Входной поток</div>\r\n      <app-goods-table [source]=\"block.info.goodsIn\" (dataChanged)=\"goodsInChanges($event)\"\r\n                       class=\"\"></app-goods-table>\r\n      <div class=\"title\">Выходной поток</div>\r\n      <app-goods-table [source]=\"block.info.goodsOut\" (dataChanged)=\"goodsOutChanges($event)\"\r\n                       class=\"\"></app-goods-table>\r\n    </mat-card-content>\r\n\r\n    <!-- ДИСТРИБЬЮТЕР -->\r\n    <mat-card-content *ngIf=\"block.classId === 7\" class=\"card-content f-stretching d-flex-column\">\r\n      <mat-card class=\"small-card\" [formGroup]=\"formGroup\">\r\n        <mat-card-title>Обслуживание</mat-card-title>\r\n        <mat-card-content>\r\n          <mat-form-field class=\"mr-2\">\r\n            <input matInput placeholder=\"Стоимость\" formControlName=\"costService\">\r\n          </mat-form-field>\r\n          <mat-form-field>\r\n            <input matInput placeholder=\"Срок\" formControlName=\"serviceTime\">\r\n          </mat-form-field>\r\n        </mat-card-content>\r\n      </mat-card>\r\n      <div class=\"title\">Погрузчики</div>\r\n      <app-loaders [info]=\"block.info\"></app-loaders>\r\n      <div class=\"title\">Товары</div>\r\n      <app-dist-goods-table [source]=\"block.info.goodsOut\"\r\n                            (dataChanged)=\"goodsOutChanges($event)\"></app-dist-goods-table>\r\n    </mat-card-content>\r\n\r\n    <!-- УЗЛЫ -->\r\n    <mat-card-content *ngIf=\"block.classId === 1 || block.classId === 3 || block.classId === 4\"\r\n                      class=\"card-content f-stretching d-flex-column\">\r\n      <div class=\"\" [formGroup]=\"formGroup\">\r\n        <ng-container *ngIf=\"schedules && schedules.controls && schedules.controls.length\">\r\n          <h1 style=\"margin: 2px 0; font-size: 20px\">Расписание</h1>\r\n          <ng-container formArrayName=\"schedules\">\r\n            <ng-container *ngFor=\"let sch of schedules.controls; let i = index;\">\r\n              <mat-card [formGroupName]=\"i\">\r\n                <mat-card-title style=\"font-size: 20px\" *ngIf=\"sch.value.blockTo.classId === 1\">Вокзал\r\n                  {{(sch.value.blockTo.info && sch.value.blockTo.info.name) ? '[' + sch.value.blockTo.info.name + ']' : ''}}\r\n                </mat-card-title>\r\n                <mat-card-title style=\"font-size: 20px\" *ngIf=\"sch.value.blockTo.classId === 3\">Аэропорт\r\n                  {{(sch.value.blockTo.info && sch.value.blockTo.info.name) ? '[' + sch.value.blockTo.info.name + ']' : ''}}\r\n                </mat-card-title>\r\n                <mat-card-title style=\"font-size: 20px\" *ngIf=\"sch.value.blockTo.classId === 4\">Порт\r\n                  {{(sch.value.blockTo.info && sch.value.blockTo.info.name) ? '[' + sch.value.blockTo.info.name + ']' : ''}}\r\n                </mat-card-title>\r\n                <mat-card-content>\r\n                  <mat-form-field class=\"full-width\">\r\n                    <input matInput [placeholder]=\"('Время отправления ({mtu})' | timeUnit)\" formControlName=\"timeFrom\">\r\n                  </mat-form-field>\r\n                  <mat-form-field class=\"full-width\">\r\n                    <input matInput [placeholder]=\"('Периодичность ({mtu})' | timeUnit)\" formControlName=\"period\">\r\n                  </mat-form-field>\r\n                </mat-card-content>\r\n\r\n                <mat-card>\r\n                  <mat-card-title style=\"font-size: 19px\">Контейнеры</mat-card-title>\r\n                  <mat-card-content>\r\n                    <mat-list *ngIf=\"schedules.get('' + i) && schedules.get('' + i).value &&\r\n                    schedules.get('' + i).value.containers\">\r\n                      <mat-list-item style=\"font-size: 12px\"\r\n                                     *ngFor=\"let c of schedules.get('' + i).value.containers; let ind = index\">\r\n                        <b>{{c.container.name}}</b>, кол-во: {{c.count}}, стоимость: {{c.price}}\r\n                        <button mat-button color=\"warn\" (click)=\"delPack(i, ind)\"><i class=\"material-icons\">clear</i>\r\n                        </button>\r\n                      </mat-list-item>\r\n                    </mat-list>\r\n                  </mat-card-content>\r\n                  <mat-card-footer class=\"d-flex-row justify-content-end\">\r\n                    <button mat-button (click)=\"addPack(i)\">+</button>\r\n                  </mat-card-footer>\r\n                </mat-card>\r\n\r\n              </mat-card>\r\n            </ng-container>\r\n          </ng-container>\r\n        </ng-container>\r\n      </div>\r\n    </mat-card-content>\r\n    <mat-card-footer class=\"d-flex-row justify-content-end\">\r\n      <button mat-button (click)=\"save()\">Сохранить</button>\r\n    </mat-card-footer>\r\n  </mat-card>\r\n</div>\r\n"
+module.exports = "<div class=\"full-height\" *ngIf=\"block\">\r\n  <mat-card class=\"full-height d-flex-column\">\r\n    <mat-card-title>\r\n      <ng-container [ngSwitch]=\"block.classId\">\r\n        <h1 *ngSwitchCase=\"1\">Вокзал</h1>\r\n        <h1 *ngSwitchCase=\"2\">Поставщик</h1>\r\n        <h1 *ngSwitchCase=\"3\">Аэропорт</h1>\r\n        <h1 *ngSwitchCase=\"4\">Порт</h1>\r\n        <h1 *ngSwitchCase=\"5\">Производитель</h1>\r\n        <h1 *ngSwitchCase=\"6\">Потребитель</h1>\r\n        <h1 *ngSwitchCase=\"7\">Дистрибьютор</h1>\r\n      </ng-container>\r\n      <mat-form-field class=\"full-width name\" [formGroup]=\"formGroup\">\r\n        <input matInput placeholder=\"Наименование\" name=\"Наименование\" formControlName=\"name\">\r\n      </mat-form-field>\r\n\r\n    </mat-card-title>\r\n\r\n    <!-- ПОСТАВЩИК -->\r\n    <mat-card-content *ngIf=\"block.classId === 2\" class=\"card-content f-stretching d-flex-column\">\r\n      <mat-card class=\"small-card\" [formGroup]=\"formGroup\">\r\n        <mat-card-title>Обслуживание</mat-card-title>\r\n        <mat-card-content>\r\n          <mat-form-field class=\"mr-2\">\r\n            <input matInput placeholder=\"Стоимость\" formControlName=\"costService\">\r\n          </mat-form-field>\r\n          <mat-form-field>\r\n            <input matInput placeholder=\"Срок\" formControlName=\"serviceTime\">\r\n          </mat-form-field>\r\n        </mat-card-content>\r\n      </mat-card>\r\n      <div class=\"title\">Товары для реализации</div>\r\n      <app-sender-goods-table [source]=\"block.info.goodsOut\"\r\n                              (dataChanged)=\"goodsOutChanges($event)\"></app-sender-goods-table>\r\n      <div class=\"title\">Погрузчики</div>\r\n      <app-loaders [info]=\"block.info\"></app-loaders>\r\n      <mat-card style=\"margin-bottom: 6px;\">\r\n        <mat-card-title style=\"font-size: 19px\">Контейнеры</mat-card-title>\r\n        <mat-card-content>\r\n          <mat-list>\r\n            <mat-list-item style=\"font-size: 12px\" *ngFor=\"let c of containers; let ind = index\">\r\n              <b>{{c.container.name}}</b>, кол-во: {{c.count}}\r\n              <button mat-button color=\"warn\" (click)=\"delContainer(ind)\"><i class=\"material-icons\">clear</i></button>\r\n            </mat-list-item>\r\n          </mat-list>\r\n        </mat-card-content>\r\n        <mat-card-footer class=\"d-flex-row justify-content-end\">\r\n          <button mat-button (click)=\"addContainer()\">+</button>\r\n        </mat-card-footer>\r\n      </mat-card>\r\n      <div class=\"title\">Транспортный парк</div>\r\n      <app-transport-park [source]=\"block.info.transports\" (dataChanged)=\"transports($event)\"></app-transport-park>\r\n    </mat-card-content>\r\n\r\n    <!-- ПОТРЕБИТЕЛЬ -->\r\n    <mat-card-content *ngIf=\"block.classId === 6\" class=\"card-content f-stretching d-flex-column\">\r\n      <div class=\"\" [formGroup]=\"formGroup\">\r\n        <!--<mat-form-field class=\"full-width\">-->\r\n        <!--<input matInput placeholder=\"Наименование\" name=\"Наименование\" formControlName=\"name\">-->\r\n        <!--</mat-form-field>-->\r\n        <mat-card class=\"small-card\">\r\n          <mat-card-title>Обслуживание</mat-card-title>\r\n          <mat-card-content>\r\n            <mat-form-field class=\"mr-2\">\r\n              <input matInput placeholder=\"Стоимость\" formControlName=\"costService\">\r\n            </mat-form-field>\r\n            <mat-form-field>\r\n              <input matInput placeholder=\"Срок\" formControlName=\"serviceTime\">\r\n            </mat-form-field>\r\n          </mat-card-content>\r\n        </mat-card>\r\n        <mat-card class=\"small-card\">\r\n          <mat-card-title>Параметры</mat-card-title>\r\n          <mat-card-content>\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput placeholder=\"Точка заказа (%)\" name=\"Точка заказа\" type=\"number\" formControlName=\"rop\">\r\n            </mat-form-field>\r\n            <mat-form-field class=\"mr-2\">\r\n              <input matInput placeholder=\"Спрос (мат. ожидание)\" name=\"Мат. ожидание\" formControlName=\"mat\">\r\n            </mat-form-field>\r\n            <mat-form-field class=\"mr-2\">\r\n              <input matInput placeholder=\"Спрос (дисперсия)\" name=\"Дисперсия\" formControlName=\"disp\">\r\n            </mat-form-field>\r\n          </mat-card-content>\r\n        </mat-card>\r\n      </div>\r\n      <div class=\"title\">Товары на заказ</div>\r\n      <app-goods-table [source]=\"block.info.goodsIn\" (dataChanged)=\"goodsInChanges($event)\"\r\n                       class=\"\"></app-goods-table>\r\n      <div class=\"title\">Погрузчики</div>\r\n      <app-loaders [info]=\"block.info\"></app-loaders>\r\n    </mat-card-content>\r\n\r\n    <!-- ПРОИЗВОДИТЕЛЬ -->\r\n    <mat-card-content *ngIf=\"block.classId === 5\" class=\"card-content f-stretching d-flex-column\">\r\n      <mat-card class=\"small-card\" [formGroup]=\"formGroup\">\r\n        <mat-card-title>Обслуживание</mat-card-title>\r\n        <mat-card-content>\r\n          <mat-form-field class=\"mr-2\">\r\n            <input matInput placeholder=\"Стоимость\" formControlName=\"costService\">\r\n          </mat-form-field>\r\n          <mat-form-field>\r\n            <input matInput placeholder=\"Срок\" formControlName=\"serviceTime\">\r\n          </mat-form-field>\r\n        </mat-card-content>\r\n      </mat-card>\r\n      <div class=\"title\">Погрузчики</div>\r\n      <app-loaders [info]=\"block.info\"></app-loaders>\r\n      <mat-card class=\"small-card\" [formGroup]=\"formGroup\">\r\n        <mat-card-title>Производство</mat-card-title>\r\n        <mat-card-content>\r\n          <mat-form-field class=\"full-width\">\r\n            <mat-label>Тип</mat-label>\r\n            <mat-select formControlName=\"workType\" placeholder=\"Тип\">\r\n              <mat-option *ngFor=\"let t of workTypes\" [value]=\"t\">\r\n                {{t}}\r\n              </mat-option>\r\n            </mat-select>\r\n          </mat-form-field>\r\n          <mat-form-field class=\"mr-2\">\r\n            <input matInput [placeholder]=\"('Длительность операции ({mtu})' | timeUnit)\" formControlName=\"workDuration\">\r\n          </mat-form-field>\r\n          <mat-form-field class=\"mr-2\">\r\n            <input matInput placeholder=\"Стоимоть операции (р)\" formControlName=\"workCost\">\r\n          </mat-form-field>\r\n          <mat-form-field class=\"mr-2\" *ngIf=\"formGroup.value && formGroup.value.workType === 'Прерываемое'\">\r\n            <input matInput [placeholder]=\"('Длительность перезапуска ({mtu})' | timeUnit)\"\r\n                   formControlName=\"workDurationRestart\">\r\n          </mat-form-field>\r\n          <mat-form-field  class=\"mr-2\" *ngIf=\"formGroup.value && formGroup.value.workType === 'Прерываемое'\">\r\n            <input matInput formControlName=\"workCostRestart\" placeholder=\"Стоимоть перезапуска (р)\">\r\n          </mat-form-field>\r\n        </mat-card-content>\r\n      </mat-card>\r\n      <div class=\"title\">Входной поток</div>\r\n      <app-goods-table [source]=\"block.info.goodsIn\" (dataChanged)=\"goodsInChanges($event)\"\r\n                       class=\"\"></app-goods-table>\r\n      <div class=\"title\">Выходной поток</div>\r\n      <app-goods-table [source]=\"block.info.goodsOut\" (dataChanged)=\"goodsOutChanges($event)\"\r\n                       class=\"\"></app-goods-table>\r\n      <div class=\"title\">Транспортный парк</div>\r\n      <app-transport-park [source]=\"block.info.transports\" (dataChanged)=\"transports($event)\"></app-transport-park>\r\n    </mat-card-content>\r\n\r\n    <!-- ДИСТРИБЬЮТЕР -->\r\n    <mat-card-content *ngIf=\"block.classId === 7\" class=\"card-content f-stretching d-flex-column\">\r\n      <mat-card class=\"small-card\" [formGroup]=\"formGroup\">\r\n        <mat-card-title>Обслуживание</mat-card-title>\r\n        <mat-card-content>\r\n          <mat-form-field class=\"mr-2\">\r\n            <input matInput placeholder=\"Стоимость\" formControlName=\"costService\">\r\n          </mat-form-field>\r\n          <mat-form-field>\r\n            <input matInput placeholder=\"Срок\" formControlName=\"serviceTime\">\r\n          </mat-form-field>\r\n        </mat-card-content>\r\n      </mat-card>\r\n      <div class=\"title\">Погрузчики</div>\r\n      <app-loaders [info]=\"block.info\"></app-loaders>\r\n      <div class=\"title\">Товары</div>\r\n      <app-dist-goods-table [source]=\"block.info.goodsOut\"\r\n                            (dataChanged)=\"goodsOutChanges($event)\"></app-dist-goods-table>\r\n      <div class=\"title\">Транспортный парк</div>\r\n      <app-transport-park [source]=\"block.info.transports\" (dataChanged)=\"transports($event)\"></app-transport-park>\r\n    </mat-card-content>\r\n\r\n    <!-- УЗЛЫ -->\r\n    <mat-card-content *ngIf=\"block.classId === 1 || block.classId === 3 || block.classId === 4\"\r\n                      class=\"card-content f-stretching d-flex-column\">\r\n      <div class=\"\" [formGroup]=\"formGroup\">\r\n        <ng-container *ngIf=\"schedules && schedules.controls && schedules.controls.length\">\r\n          <h1 style=\"margin: 2px 0; font-size: 20px\">Расписание</h1>\r\n          <ng-container formArrayName=\"schedules\">\r\n            <ng-container *ngFor=\"let sch of schedules.controls; let i = index;\">\r\n              <mat-card [formGroupName]=\"i\">\r\n                <mat-card-title style=\"font-size: 20px\" *ngIf=\"sch.value.blockTo.classId === 1\">Вокзал\r\n                  {{(sch.value.blockTo.info && sch.value.blockTo.info.name) ? '[' + sch.value.blockTo.info.name + ']' : ''}}\r\n                </mat-card-title>\r\n                <mat-card-title style=\"font-size: 20px\" *ngIf=\"sch.value.blockTo.classId === 3\">Аэропорт\r\n                  {{(sch.value.blockTo.info && sch.value.blockTo.info.name) ? '[' + sch.value.blockTo.info.name + ']' : ''}}\r\n                </mat-card-title>\r\n                <mat-card-title style=\"font-size: 20px\" *ngIf=\"sch.value.blockTo.classId === 4\">Порт\r\n                  {{(sch.value.blockTo.info && sch.value.blockTo.info.name) ? '[' + sch.value.blockTo.info.name + ']' : ''}}\r\n                </mat-card-title>\r\n                <mat-card-content>\r\n                  <mat-form-field class=\"full-width\">\r\n                    <input matInput [placeholder]=\"('Время отправления ({mtu})' | timeUnit)\" formControlName=\"timeFrom\">\r\n                  </mat-form-field>\r\n                  <mat-form-field class=\"full-width\">\r\n                    <input matInput [placeholder]=\"('Периодичность ({mtu})' | timeUnit)\" formControlName=\"period\">\r\n                  </mat-form-field>\r\n                </mat-card-content>\r\n\r\n                <mat-card>\r\n                  <mat-card-title style=\"font-size: 19px\">Контейнеры</mat-card-title>\r\n                  <mat-card-content>\r\n                    <mat-list *ngIf=\"schedules.get('' + i) && schedules.get('' + i).value &&\r\n                    schedules.get('' + i).value.containers\">\r\n                      <mat-list-item style=\"font-size: 12px\"\r\n                                     *ngFor=\"let c of schedules.get('' + i).value.containers; let ind = index\">\r\n                        <b>{{c.container.name}}</b>, кол-во: {{c.count}}, стоимость: {{c.price}}\r\n                        <button mat-button color=\"warn\" (click)=\"delPack(i, ind)\"><i class=\"material-icons\">clear</i>\r\n                        </button>\r\n                      </mat-list-item>\r\n                    </mat-list>\r\n                  </mat-card-content>\r\n                  <mat-card-footer class=\"d-flex-row justify-content-end\">\r\n                    <button mat-button (click)=\"addPack(i)\">+</button>\r\n                  </mat-card-footer>\r\n                </mat-card>\r\n\r\n              </mat-card>\r\n            </ng-container>\r\n          </ng-container>\r\n        </ng-container>\r\n      </div>\r\n    </mat-card-content>\r\n    <mat-card-footer class=\"d-flex-row justify-content-end\">\r\n      <button mat-button (click)=\"save()\">Сохранить</button>\r\n    </mat-card-footer>\r\n  </mat-card>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -110,6 +110,10 @@ var BlockInfoComponent = /** @class */ (function () {
     BlockInfoComponent.prototype.makeSchedule = function () {
         var _this = this;
         var existed = this.block.info.schedules || [];
+        existed = existed.map(function (e) {
+            e.blockTo = _this.bs.blocks.find(function (b) { return b.id === e.blockTo.id; });
+            return e;
+        });
         var connected = [];
         this.bs.links.forEach(function (l) {
             if (l.from === _this.block.id) {
@@ -192,6 +196,10 @@ var BlockInfoComponent = /** @class */ (function () {
                 _this.containers = _this.containers.slice();
             }
         });
+    };
+    BlockInfoComponent.prototype.transports = function (e) {
+        this.block.info.transports = e;
+        // this.blockChanged.next(this.block);
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -1702,6 +1710,190 @@ var SenderGoodsTableComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/redactor/components/transport-park/transport-park.component.html":
+/*!**********************************************************************************!*\
+  !*** ./src/app/redactor/components/transport-park/transport-park.component.html ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<table mat-table [dataSource]=\"source\" class=\"mat-elevation-z1 full-width table-container\">\n\n  <ng-container matColumnDef=\"transport\">\n    <th mat-header-cell *matHeaderCellDef>Транспорт</th>\n    <td mat-cell *matCellDef=\"let row\"> {{row.transport.name}} </td>\n  </ng-container>\n\n  <ng-container matColumnDef=\"container\">\n    <th mat-header-cell *matHeaderCellDef>Контейнер</th>\n    <td mat-cell *matCellDef=\"let row\"> {{row.container?.name}} </td>\n  </ng-container>\n\n  <ng-container matColumnDef=\"count\">\n    <th mat-header-cell *matHeaderCellDef>Кол-во</th>\n    <td mat-cell *matCellDef=\"let row\"> {{row.count}} </td>\n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n  <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\" (click)=\"selectRow(row)\"\n      style=\"cursor: pointer;\" [ngClass]=\"{'selected-row': row === selectedRow}\"></tr>\n\n</table>\n\n<mat-card *ngIf=\"!selectedRow\" class=\"small-card\" [formGroup]=\"form\">\n  <mat-card-content>\n    <mat-form-field class=\"full-width\">\n      <mat-label>Траспорт</mat-label>\n      <mat-select formControlName=\"transport\" placeholder=\"Траспорт\" [compareWith]=\"compareSelect\">\n        <mat-option *ngFor=\"let t of transports\" [value]=\"t\">\n          {{t.name}}\n        </mat-option>\n      </mat-select>\n    </mat-form-field>\n    <mat-form-field class=\"full-width\">\n      <mat-label>Контейнер</mat-label>\n      <mat-select formControlName=\"container\" placeholder=\"Контейнер\" [compareWith]=\"compareSelect\">\n        <mat-option *ngFor=\"let c of getContainers()\" [value]=\"c\">\n          {{c.name}}\n        </mat-option>\n      </mat-select>\n    </mat-form-field>\n    <mat-form-field class=\"full-width\">\n      <input matInput placeholder=\"Количество\" formControlName=\"count\">\n    </mat-form-field>\n  </mat-card-content>\n  <mat-card-footer class=\"d-flex-row justify-content-end\">\n    <button mat-button (click)=\"addRow()\">+</button>\n  </mat-card-footer>\n</mat-card>\n\n<mat-card *ngIf=\"selectedRow\" class=\"small-card\" [formGroup]=\"form\">\n  <mat-card-content>\n    <mat-form-field class=\"full-width\">\n      <mat-label>Траспорт</mat-label>\n      <mat-select formControlName=\"transport\" placeholder=\"Траспорт\" [compareWith]=\"compareSelect\">\n        <mat-option *ngFor=\"let t of transports\" [value]=\"t\">\n          {{t.name}}\n        </mat-option>\n      </mat-select>\n    </mat-form-field>\n    <mat-form-field class=\"full-width\">\n      <mat-label>Контейнер</mat-label>\n      <mat-select formControlName=\"container\" placeholder=\"Контейнер\" [compareWith]=\"compareSelect\">\n        <mat-option *ngFor=\"let c of containers\" [value]=\"c\">\n          {{c.name}}\n        </mat-option>\n      </mat-select>\n    </mat-form-field>\n    <mat-form-field class=\"full-width\">\n      <input matInput placeholder=\"Количество\" formControlName=\"count\">\n    </mat-form-field>\n  </mat-card-content>\n  <mat-card-footer class=\"d-flex-row justify-content-end\">\n    <button mat-button (click)=\"deleteRow()\">Удалить</button>\n    <button mat-button (click)=\"changeRow()\">Изменить</button>\n  </mat-card-footer>\n</mat-card>\n\n"
+
+/***/ }),
+
+/***/ "./src/app/redactor/components/transport-park/transport-park.component.scss":
+/*!**********************************************************************************!*\
+  !*** ./src/app/redactor/components/transport-park/transport-park.component.scss ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".selected-row {\n  background-color: rgba(0, 255, 252, 0.33); }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcmVkYWN0b3IvY29tcG9uZW50cy90cmFuc3BvcnQtcGFyay9DOlxcV1BcXHJlZGFjdG9yL3NyY1xcYXBwXFxyZWRhY3RvclxcY29tcG9uZW50c1xcdHJhbnNwb3J0LXBhcmtcXHRyYW5zcG9ydC1wYXJrLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UseUNBQXlDLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9yZWRhY3Rvci9jb21wb25lbnRzL3RyYW5zcG9ydC1wYXJrL3RyYW5zcG9ydC1wYXJrLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnNlbGVjdGVkLXJvdyB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLCAyNTUsIDI1MiwgMC4zMyk7XHJcbn1cclxuIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/redactor/components/transport-park/transport-park.component.ts":
+/*!********************************************************************************!*\
+  !*** ./src/app/redactor/components/transport-park/transport-park.component.ts ***!
+  \********************************************************************************/
+/*! exports provided: TransportParkComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TransportParkComponent", function() { return TransportParkComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _shared_services_dicts_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../shared/services/dicts.service */ "./src/app/shared/services/dicts.service.ts");
+
+
+
+
+var TransportParkComponent = /** @class */ (function () {
+    function TransportParkComponent(fb, ds) {
+        this.fb = fb;
+        this.ds = ds;
+        this.dataChanged = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.selectedRow = null;
+        this.displayedColumns = ['transport', 'container', 'count'];
+        this.transports = [];
+        this.containers = [];
+        this.compareSelect = function (a, b) {
+            if (a && b) {
+                return a.name === b.name;
+            }
+            else {
+                return false;
+            }
+        };
+    }
+    TransportParkComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.form = this.fb.group({
+            transport: null,
+            container: null,
+            count: null
+        });
+        this.transports = this.ds.getDictVals('transports');
+        this.containers = this.ds.getDictVals('containers');
+        this.subscription = this.form.get('transport').valueChanges.subscribe(function (res) {
+            if (res) {
+                _this.form.get('container').setValue(null);
+                _this.containers = _this.ds.getDictVals('containers').filter(function (c) {
+                    if (c.type) {
+                        return c.type.name === res.name;
+                    }
+                    else {
+                        return false;
+                    }
+                });
+            }
+            else {
+                _this.containers = _this.ds.getDictVals('containers');
+            }
+        });
+    };
+    TransportParkComponent.prototype.ngOnChanges = function (changes) {
+        // if (this.subscription) {
+        //   this.subscription.unsubscribe();
+        // }
+        if (changes.source && !this.source) {
+            this.source = [];
+            if (this.form) {
+                this.form.reset({});
+                // this.subscription = this.form.get('transport').valueChanges.subscribe(res => {
+                //   this.form.get('container').setValue(null);
+                //   if (res) {
+                //     this.containers = this.ds.getDictVals('containers').filter(c => {
+                //       if (c.type) {
+                //         return c.type.name === res.name;
+                //       } else {
+                //         return false;
+                //       }
+                //     });
+                //   } else {
+                //     this.containers = [];
+                //   }
+                // });
+            }
+        }
+    };
+    TransportParkComponent.prototype.getContainers = function () {
+        var vals = this.form.get('transport').value;
+        if (vals) {
+            return this.ds.getDictVals('containers').filter(function (c) {
+                if (c.type) {
+                    return c.type.name === vals.name;
+                }
+                else {
+                    return false;
+                }
+            });
+        }
+        else {
+            return [];
+        }
+    };
+    TransportParkComponent.prototype.selectRow = function (e) {
+        if (this.selectedRow === e) {
+            this.selectedRow = null;
+            this.form.reset({});
+        }
+        else {
+            this.selectedRow = e;
+            this.form.reset(this.selectedRow);
+        }
+    };
+    TransportParkComponent.prototype.addRow = function () {
+        if (this.form.value && this.form.value.transport) {
+            this.source.push(this.form.value);
+            this.form.reset({});
+            this.source = this.source.slice();
+            this.dataChanged.next(this.source);
+        }
+    };
+    TransportParkComponent.prototype.changeRow = function () {
+        if (this.form.value && this.form.value.transport) {
+            Object.assign(this.selectedRow, this.form.value);
+            this.form.reset({});
+            this.selectedRow = null;
+            this.source = this.source.slice();
+            this.dataChanged.next(this.source);
+        }
+    };
+    TransportParkComponent.prototype.deleteRow = function () {
+        var _this = this;
+        var foundInd = this.source.findIndex(function (s) { return s === _this.selectedRow; });
+        this.source.splice(foundInd, 1);
+        this.form.reset({});
+        this.selectedRow = null;
+        this.source = this.source.slice();
+        this.dataChanged.next(this.source);
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], TransportParkComponent.prototype, "source", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], TransportParkComponent.prototype, "dataChanged", void 0);
+    TransportParkComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-transport-park',
+            template: __webpack_require__(/*! ./transport-park.component.html */ "./src/app/redactor/components/transport-park/transport-park.component.html"),
+            styles: [__webpack_require__(/*! ./transport-park.component.scss */ "./src/app/redactor/components/transport-park/transport-park.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _shared_services_dicts_service__WEBPACK_IMPORTED_MODULE_3__["DictsService"]])
+    ], TransportParkComponent);
+    return TransportParkComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/redactor/redactor-routing.module.ts":
 /*!*****************************************************!*\
   !*** ./src/app/redactor/redactor-routing.module.ts ***!
@@ -1767,6 +1959,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_sender_goods_table_sender_goods_table_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/sender-goods-table/sender-goods-table.component */ "./src/app/redactor/components/sender-goods-table/sender-goods-table.component.ts");
 /* harmony import */ var _components_sender_container_dialog_sender_container_dialog_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/sender-container-dialog/sender-container-dialog.component */ "./src/app/redactor/components/sender-container-dialog/sender-container-dialog.component.ts");
 /* harmony import */ var _components_dist_goods_table_dist_goods_table_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/dist-goods-table/dist-goods-table.component */ "./src/app/redactor/components/dist-goods-table/dist-goods-table.component.ts");
+/* harmony import */ var _components_transport_park_transport_park_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/transport-park/transport-park.component */ "./src/app/redactor/components/transport-park/transport-park.component.ts");
+
 
 
 
@@ -1797,7 +1991,8 @@ var RedactorModule = /** @class */ (function () {
                 _components_loaders_loaders_component__WEBPACK_IMPORTED_MODULE_11__["LoadersComponent"],
                 _components_sender_goods_table_sender_goods_table_component__WEBPACK_IMPORTED_MODULE_12__["SenderGoodsTableComponent"],
                 _components_sender_container_dialog_sender_container_dialog_component__WEBPACK_IMPORTED_MODULE_13__["SenderContainerDialogComponent"],
-                _components_dist_goods_table_dist_goods_table_component__WEBPACK_IMPORTED_MODULE_14__["DistGoodsTableComponent"]
+                _components_dist_goods_table_dist_goods_table_component__WEBPACK_IMPORTED_MODULE_14__["DistGoodsTableComponent"],
+                _components_transport_park_transport_park_component__WEBPACK_IMPORTED_MODULE_15__["TransportParkComponent"]
             ],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
