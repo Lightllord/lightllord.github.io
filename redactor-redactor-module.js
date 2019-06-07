@@ -835,7 +835,7 @@ var ParametersDialogComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"full-height d-flex-row all\">\r\n  <div class=\"left-toolbar full-height d-flex-column\">\r\n    <mat-card>\r\n      <mat-card-title>\r\n        Блоки\r\n      </mat-card-title>\r\n      <mat-card-content>\r\n        <button mat-stroked-button class=\"toolbar-wide-button postavshik\" (click)=\"addBlock(2)\">\r\n          + Поставщик\r\n        </button>\r\n        <button mat-stroked-button class=\"toolbar-wide-button vokzal\" (click)=\"addBlock(1)\">\r\n          + Вокзал\r\n        </button>\r\n        <button mat-stroked-button class=\"toolbar-wide-button aeroport\" (click)=\"addBlock(3)\">\r\n          + Аэропорт\r\n        </button>\r\n        <button mat-stroked-button class=\"toolbar-wide-button port\" (click)=\"addBlock(4)\">\r\n          + Порт\r\n        </button>\r\n        <button mat-stroked-button class=\"toolbar-wide-button proizvoditel\" (click)=\"addBlock(5)\">\r\n          + Производитель\r\n        </button>\r\n        <button mat-stroked-button class=\"toolbar-wide-button distributer\" (click)=\"addBlock(7)\">\r\n          + Дистрибьютор\r\n        </button>\r\n        <button mat-stroked-button class=\"toolbar-wide-button potrebitel\" (click)=\"addBlock(6)\">\r\n          + Потребитель\r\n        </button>\r\n      </mat-card-content>\r\n      <mat-card-footer class=\"d-flex-row justify-content-end\">\r\n        <button mat-button (click)=\"downloadScheme()\">JSON</button>\r\n        <button mat-button (click)=\"settings()\"><i class=\"material-icons\">settings</i></button>\r\n        <button mat-button (click)=\"save()\"><i class=\"material-icons\">save</i></button>\r\n      </mat-card-footer>\r\n    </mat-card>\r\n  </div>\r\n  <div class=\"paper-container full-height d-flex-row\">\r\n    <div class=\"paper-view\" #paperView></div>\r\n  </div>\r\n  <div class=\"right-toolbar full-height\">\r\n    <app-block-info *ngIf=\"selectedBlock\" [block]=\"selectedBlock\" (blockChanged)=\"blockChange($event)\"></app-block-info>\r\n    <app-link-info *ngIf=\"selectedLink\" [link]=\"selectedLink\"></app-link-info>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"full-height d-flex-row all\">\r\n  <div class=\"left-toolbar full-height d-flex-column\">\r\n    <mat-card>\r\n      <mat-card-title>\r\n        Блоки\r\n      </mat-card-title>\r\n      <mat-card-content>\r\n        <button mat-stroked-button class=\"toolbar-wide-button postavshik\" (click)=\"addBlock(2)\">\r\n          + Поставщик\r\n        </button>\r\n        <button mat-stroked-button class=\"toolbar-wide-button vokzal\" (click)=\"addBlock(1)\">\r\n          + Вокзал\r\n        </button>\r\n        <button mat-stroked-button class=\"toolbar-wide-button aeroport\" (click)=\"addBlock(3)\">\r\n          + Аэропорт\r\n        </button>\r\n        <button mat-stroked-button class=\"toolbar-wide-button port\" (click)=\"addBlock(4)\">\r\n          + Порт\r\n        </button>\r\n        <button mat-stroked-button class=\"toolbar-wide-button proizvoditel\" (click)=\"addBlock(5)\">\r\n          + Производитель\r\n        </button>\r\n        <button mat-stroked-button class=\"toolbar-wide-button distributer\" (click)=\"addBlock(7)\">\r\n          + Дистрибьютор\r\n        </button>\r\n        <button mat-stroked-button class=\"toolbar-wide-button potrebitel\" (click)=\"addBlock(6)\">\r\n          + Потребитель\r\n        </button>\r\n      </mat-card-content>\r\n      <mat-card-footer class=\"d-flex-row justify-content-end\">\r\n        <label class=\"mat-button\" for=\"load\">from JSON</label>\r\n        <input type=\"file\" id=\"load\" style=\"display: none;\" #loader (change)=\"loadScheme()\">\r\n        <button mat-button (click)=\"downloadScheme()\">to JSON</button>\r\n        <button mat-button (click)=\"settings()\"><i class=\"material-icons\">settings</i></button>\r\n        <button mat-button (click)=\"save()\"><i class=\"material-icons\">save</i></button>\r\n      </mat-card-footer>\r\n    </mat-card>\r\n  </div>\r\n  <div class=\"paper-container full-height d-flex-row\">\r\n    <div class=\"paper-view\" #paperView></div>\r\n  </div>\r\n  <div class=\"right-toolbar full-height\">\r\n    <app-block-info *ngIf=\"selectedBlock\" [block]=\"selectedBlock\" (blockChanged)=\"blockChange($event)\"></app-block-info>\r\n    <app-link-info *ngIf=\"selectedLink\" [link]=\"selectedLink\"></app-link-info>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1242,22 +1242,6 @@ var RedactorComponent = /** @class */ (function () {
             }
         }
     };
-    RedactorComponent.prototype.save = function () {
-        var _this = this;
-        this.selectedLink = null;
-        this.selectedBlock = null;
-        this.graph.clear();
-        this.blocks.forEach(function (b) {
-            if (b.html) {
-                _this.renderer.removeChild(_this.paperView.nativeElement, b.html);
-            }
-        });
-        this.bs.save(this.blocks, this.links);
-        this.blocks = this.bs.blocks;
-        this.links = this.bs.links;
-        this.processAllBlocks();
-        this.processAllLinks();
-    };
     RedactorComponent.prototype.settings = function () {
         var dialogRef = this.dialog.open(_parameters_dialog_parameters_dialog_component__WEBPACK_IMPORTED_MODULE_4__["ParametersDialogComponent"], {
             width: '300px'
@@ -1444,6 +1428,22 @@ var RedactorComponent = /** @class */ (function () {
             this.renderer.setStyle(b.html, 'top', b.y + 30 + "px");
         }
     };
+    RedactorComponent.prototype.save = function () {
+        var _this = this;
+        this.selectedLink = null;
+        this.selectedBlock = null;
+        this.graph.clear();
+        this.blocks.forEach(function (b) {
+            if (b.html) {
+                _this.renderer.removeChild(_this.paperView.nativeElement, b.html);
+            }
+        });
+        this.bs.save(this.blocks, this.links);
+        this.blocks = this.bs.blocks;
+        this.links = this.bs.links;
+        this.processAllBlocks();
+        this.processAllLinks();
+    };
     RedactorComponent.prototype.downloadScheme = function () {
         var _this = this;
         this.selectedLink = null;
@@ -1459,6 +1459,30 @@ var RedactorComponent = /** @class */ (function () {
         this.links = this.bs.links;
         this.processAllBlocks();
         this.processAllLinks();
+    };
+    RedactorComponent.prototype.loadScheme = function () {
+        var _this = this;
+        var file = this.loader.nativeElement.files[0];
+        if (file.type === 'application/json') {
+            this.selectedLink = null;
+            this.selectedBlock = null;
+            this.graph.clear();
+            this.blocks.forEach(function (b) {
+                if (b.html) {
+                    _this.renderer.removeChild(_this.paperView.nativeElement, b.html);
+                }
+            });
+            var reader_1 = new FileReader();
+            reader_1.readAsText(file);
+            reader_1.onload = function (ev) {
+                var text = reader_1.result;
+                var object = JSON.parse(text);
+                _this.blocks = object.blocks || [];
+                _this.links = object.links || [];
+                _this.processAllBlocks();
+                _this.processAllLinks();
+            };
+        }
     };
     var RedactorComponent_1;
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -1477,6 +1501,10 @@ var RedactorComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], RedactorComponent.prototype, "ctrlDown", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('loader'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], RedactorComponent.prototype, "loader", void 0);
     RedactorComponent = RedactorComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-redactor',
