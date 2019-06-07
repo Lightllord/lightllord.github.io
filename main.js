@@ -1528,7 +1528,8 @@ var SharedModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatInputModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSelectModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialogModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialogModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatCheckboxModule"]
             ],
             exports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
@@ -1542,7 +1543,8 @@ var SharedModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSelectModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatListModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialogModule"],
-                _dictionaries_pipes_time_unit_pipe__WEBPACK_IMPORTED_MODULE_8__["TimeUnitPipe"]
+                _dictionaries_pipes_time_unit_pipe__WEBPACK_IMPORTED_MODULE_8__["TimeUnitPipe"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatCheckboxModule"]
             ]
         })
     ], SharedModule);
